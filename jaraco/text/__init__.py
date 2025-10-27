@@ -1,14 +1,9 @@
 import functools
 import itertools
 import re
-import sys
 import textwrap
-from typing import Iterable
-
-if sys.version_info >= (3, 9):
-    from importlib.resources import files
-else:  # pragma: nocover
-    from importlib_resources import files
+from collections.abc import Iterable
+from importlib.resources import files
 
 from jaraco.context import ExceptionTrap
 from jaraco.functools import compose, method_cache
@@ -134,11 +129,7 @@ class FoldedCase(str):
         return pattern.split(self, maxsplit)
 
 
-# Python 3.8 compatibility
-_unicode_trap = ExceptionTrap(UnicodeDecodeError)
-
-
-@_unicode_trap.passes
+@ExceptionTrap(UnicodeDecodeError).passes
 def is_decodable(value):
     r"""
     Return True if the supplied value is decodable (using the default
