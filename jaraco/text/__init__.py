@@ -401,7 +401,7 @@ class WordSet(tuple[str, ...]):
     def space_separated(self) -> str:
         return ' '.join(self)
 
-    def trim_right(self, item: str) -> WordSet | Self:
+    def trim_right(self, item: str) -> WordSet:
         """
         Remove the item from the end of the set.
 
@@ -414,7 +414,7 @@ class WordSet(tuple[str, ...]):
         """
         return self[:-1] if self and self[-1] == item else self
 
-    def trim_left(self, item: str) -> WordSet | Self:
+    def trim_left(self, item: str) -> WordSet:
         """
         Remove the item from the beginning of the set.
 
@@ -427,7 +427,7 @@ class WordSet(tuple[str, ...]):
         """
         return self[1:] if self and self[0] == item else self
 
-    def trim(self, item: str) -> WordSet | Self:
+    def trim(self, item: str) -> WordSet:
         """
         >>> WordSet.parse('foo bar').trim('foo')
         ('bar',)
