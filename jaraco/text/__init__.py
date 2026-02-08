@@ -46,7 +46,7 @@ def substitution(old: str, new: str) -> Callable[[str], str]:
     return lambda s: s.replace(old, new)
 
 
-def multi_substitution(*_substitutions: str) -> Callable[[str], str]:
+def multi_substitution(*substitutions: str) -> Callable[[str], str]:
     """
     Take a sequence of pairs specifying substitutions, and create
     a function that performs those substitutions.
@@ -54,13 +54,13 @@ def multi_substitution(*_substitutions: str) -> Callable[[str], str]:
     >>> multi_substitution(('foo', 'bar'), ('bar', 'baz'))('foo')
     'baz'
     """
-    substitutions: Iterable[Callable[[str], str]] = itertools.starmap(
-        substitution, _substitutions
+    callables: Iterable[Callable[[str], str]] = itertools.starmap(
+        substitution, substitutions
     )
     # compose function applies last function first, so reverse the
     #  substitutions to get the expected order.
-    substitutions = reversed(tuple(substitutions))
-    return compose(*substitutions)
+    reversed_ = reversed(tuple(callables))
+    return compose(*reversed_)
 
 
 class FoldedCase(str):
