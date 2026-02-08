@@ -1,3 +1,14 @@
+v4.1.0
+======
+
+Features
+--------
+
+- Complete annotations and add ``py.typed`` marker -- by :user:`Avasam` (#17)
+- Add support for ``start`` and ``end`` in `jaraco.text.FoldedCase.index` -- by :user:`Avasam` (#17)
+- Support `None` ``splitter`` argument in `jaraco.text.FoldedCase.split` -- by :user:`Avasam` (#17)
+
+
 v4.0.0
 ======
 
