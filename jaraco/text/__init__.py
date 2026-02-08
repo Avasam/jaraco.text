@@ -135,7 +135,7 @@ class FoldedCase(str):
     >>> FoldedCase('foo') == object()
     False
     >>> FoldedCase('foo') != object()
-    False
+    True
     >>> object() in FoldedCase('foo')
     False
     """
@@ -156,7 +156,7 @@ class FoldedCase(str):
 
     @functools.singledispatchmethod
     def __ne__(self, other: object) -> bool:
-        return False
+        return True
 
     @__ne__.register
     def _(self, other: str) -> bool:
