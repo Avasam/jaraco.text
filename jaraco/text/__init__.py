@@ -85,6 +85,11 @@ class FoldedCase(str):
     >>> s.split('O')
     ['hell', ' w', 'rld']
 
+    Like ``str``, split accepts None as ''.
+
+    >>> s.split(None)
+    ['hello', 'world']
+
     >>> sorted(map(FoldedCase, ['GAMMA', 'alpha', 'Beta']))
     ['alpha', 'Beta', 'GAMMA']
 
@@ -124,6 +129,15 @@ class FoldedCase(str):
 
     >>> FoldedCase('ß') == FoldedCase('ss')
     True
+
+    Also supports string to object comparisons:
+
+    >>> FoldedCase('foo') == object()
+    False
+    >>> FoldedCase('foo') != object()
+    False
+    >>> object() in FoldedCase('foo')
+    False
     """
 
     def __lt__(self, other: str) -> bool:
