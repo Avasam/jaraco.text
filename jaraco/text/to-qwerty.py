@@ -2,5 +2,4 @@ import sys
 
 from . import layouts
 
-if __name__ == '__main__':  # pragma: nocover
-    layouts._translate_stream(sys.stdin, layouts.to_qwerty)
+__name__ == '__main__' and layouts._translate_stream(sys.stdin, layouts.to_qwerty)  # type: ignore[func-returns-value]
