@@ -6,6 +6,7 @@ import re
 import sys
 import textwrap
 from collections.abc import Callable, Generator, Iterable, Sequence
+from importlib.resources import files
 from typing import (
     TYPE_CHECKING,
     Literal,
@@ -22,11 +23,6 @@ if sys.version_info >= (3, 11):
     from importlib.resources.abc import Traversable
 else:
     from importlib.abc import Traversable
-
-if sys.version_info >= (3, 9):
-    from importlib.resources import files
-else:  # pragma: nocover
-    from importlib_resources import files
 
 if TYPE_CHECKING:
     from _typeshed import FileDescriptorOrPath, SupportsGetItem
@@ -180,11 +176,7 @@ class FoldedCase(str):
         return pattern.split(self, int(maxsplit))
 
 
-# Python 3.8 compatibility
-_unicode_trap = ExceptionTrap(UnicodeDecodeError)  # type: ignore[no-untyped-call] # jaraco/jaraco.context#15
-
-
-@_unicode_trap.passes  # type: ignore[misc] # jaraco/jaraco.context#15
+@ExceptionTrap(UnicodeDecodeError).passes  # type: ignore[no-untyped-call, untyped-decorator] # jaraco/jaraco.context#15
 def is_decodable(value: _SupportsDecode) -> None:
     r"""
     Return True if the supplied value is decodable (using the default
