@@ -1,18 +1,16 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
-import autocommand
 import inflect
+import typer
 from more_itertools import always_iterable
 
 import jaraco.text
 
-if TYPE_CHECKING:
-    from _typeshed import FileDescriptorOrPath
 
-
-def report_newlines(filename: FileDescriptorOrPath) -> None:
+# filename is technically a FileDescriptorOrPath, but Typer doesn't support Unions yet
+# and this file is script-only (not importable) anyway.
+# https://github.com/fastapi/typer/issues/461
+def report_newlines(filename: str) -> None:
     r"""
     Report the newlines in the indicated file.
 
@@ -37,4 +35,4 @@ def report_newlines(filename: FileDescriptorOrPath) -> None:
     )
 
 
-autocommand.autocommand(__name__)(report_newlines)
+__name__ == '__main__' and typer.run(report_newlines)  # type: ignore[func-returns-value]
