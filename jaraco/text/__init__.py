@@ -202,7 +202,7 @@ class FoldedCase(str):
         return pattern.split(self, int(maxsplit))
 
 
-@ExceptionTrap(UnicodeDecodeError).passes  # type: ignore[no-untyped-call, untyped-decorator] # jaraco/jaraco.context#15
+@ExceptionTrap(UnicodeDecodeError).passes  # type: ignore[no-untyped-call, untyped-decorator, unused-ignore, misc] # jaraco/jaraco.context#15
 def is_decodable(value: _SupportsDecode) -> None:
     r"""
     Return True if the supplied value is decodable (using the default
