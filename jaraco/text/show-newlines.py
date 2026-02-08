@@ -7,10 +7,7 @@ from more_itertools import always_iterable
 import jaraco.text
 
 
-# filename is technically a FileDescriptorOrPath, but Typer doesn't support Unions yet
-# and this file is script-only (not importable) anyway.
-# https://github.com/fastapi/typer/issues/461
-def report_newlines(filename: str) -> None:
+def report_newlines(input: typer.FileText) -> None:
     r"""
     Report the newlines in the indicated file.
 
@@ -24,7 +21,7 @@ def report_newlines(filename: str) -> None:
     >>> report_newlines(filename)
     newlines are ('\n', '\r\n')
     """
-    newlines = jaraco.text.read_newlines(filename)
+    newlines = jaraco.text.read_newlines(input)
     count = len(tuple(always_iterable(newlines)))
     engine = inflect.engine()
     print(
