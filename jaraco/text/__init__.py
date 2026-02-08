@@ -132,25 +132,34 @@ class FoldedCase(str):
     def __gt__(self, other: str) -> bool:
         return self.casefold() > other.casefold()
 
+    @functools.singledispatchmethod
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, str):
-            return False
-        return self.casefold() == other.casefold()
+        return False
 
+    @__eq__.register
+    def _(self, other: str) -> bool:
+        return self.casefold().__eq__(other.casefold())
+
+    @functools.singledispatchmethod
     def __ne__(self, other: object) -> bool:
-        if not isinstance(other, str):
-            return False
-        return self.casefold() != other.casefold()
+        return False
+
+    @__ne__.register
+    def _(self, other: str) -> bool:
+        return self.casefold().__ne__(other.casefold())
 
     def __hash__(self) -> int:
         return hash(self.casefold())
 
+    @functools.singledispatchmethod
     def __contains__(self, other: object) -> bool:
-        if not isinstance(other, str):
-            return False
+        return False
+
+    @__contains__.register
+    def _(self, other: str) -> bool:
         return super().casefold().__contains__(other.casefold())
 
-    def in_(self, other: object) -> bool:
+    def in_(self, other: str) -> bool:
         """Does self appear in other?"""
         return self in FoldedCase(other)
 
@@ -167,11 +176,14 @@ class FoldedCase(str):
     ) -> int:
         return self.casefold().index(sub.casefold(), start, end)
 
+    @functools.singledispatchmethod
     def split(
         self, splitter: str | None = ' ', maxsplit: SupportsIndex = 0
     ) -> list[str]:
-        if splitter is None:
-            splitter = ' '
+        return self.split(' ', maxsplit=maxsplit)
+
+    @split.register
+    def _(self, splitter: str, maxsplit: SupportsIndex = 0) -> list[str]:
         pattern = re.compile(re.escape(splitter), re.I)
         return pattern.split(self, int(maxsplit))
 
