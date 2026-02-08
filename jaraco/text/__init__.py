@@ -19,9 +19,9 @@ from typing import (
 from jaraco.context import ExceptionTrap
 from jaraco.functools import compose, method_cache
 
-if sys.version_info >= (3, 11):
+if sys.version_info >= (3, 11):  # pragma: no cover
     from importlib.resources.abc import Traversable
-else:
+else:  # pragma: no cover
     from importlib.abc import Traversable
 
 if TYPE_CHECKING:
