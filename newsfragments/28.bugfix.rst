@@ -1,0 +1,1 @@
+Fixed `join_continuation`'s parameter type annotation -- by :user:`Avasam`
