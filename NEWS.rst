@@ -1,3 +1,18 @@
+v4.2.0
+======
+
+Features
+--------
+
+- Replaced ``autocommand`` usage with ``Typer`` -- by :user:`Avasam` (#25)
+
+
+Bugfixes
+--------
+
+- Fixed `join_continuation`'s parameter type annotation -- by :user:`Avasam` (#28)
+
+
 v4.1.0
 ======
 
